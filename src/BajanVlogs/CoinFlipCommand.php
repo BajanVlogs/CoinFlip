@@ -2,7 +2,6 @@
 
 namespace BajanVlogs;
 
-
 use onebone\economyapi\EconomyAPI;
 use pocketmine\command\CommandSender;
 use pocketmine\command\defaults\VanillaCommand;
@@ -22,8 +21,9 @@ class CoinFlipCommand extends VanillaCommand {
 			return false;
 		}
 
-		if(isset(array $args[0])){
-			switch(array $args[0]){
+		$args[0] = strtolower($args[0]);
+		if(isset($args[0])){
+			switch($args[0]){
 				case "accept":
 				case "a":
 					if(isset(CoinFlip::$queue[strtolower($sender->getName())])){
@@ -61,9 +61,9 @@ class CoinFlipCommand extends VanillaCommand {
 					}
 					break;
 				default:
-					if(isset(array $args[1])){
-						array $args[1] = abs(array $args[1]);
-						$player = $sender->getServer()->getPlayer(array $args[0]);
+					if(isset($args[1])){
+						$args[1] = abs($args[1]);
+						$player = $sender->getServer()->getPlayer($args[0]);
 						if($player === null){
 							$sender->sendMessage("Player is not online.");
 							break;
@@ -72,20 +72,20 @@ class CoinFlipCommand extends VanillaCommand {
 								$sender->sendMessage(TextFormat::YELLOW . "A CoinFlip has already been requested...");
 								break;
 							}
-							if(EconomyAPI::getInstance()->myMoney($player->getName()) < array $args[1]){
+							if(EconomyAPI::getInstance()->myMoney($player->getName()) < $args[1]){
 								$sender->sendMessage(TextFormat::RED . $player->getName() . " Does not have enough money.");
 								break;
 							}
-							if(EconomyAPI::getInstance()->myMoney($sender->getName()) < array $args[1]){
+							if(EconomyAPI::getInstance()->myMoney($sender->getName()) < $args[1]){
 								$sender->sendMessage(TextFormat::RED . "Not enough money.");
 								break;
 							}
-							CoinFlip::$queue[strtolower($player->getName())] = [strtolower($sender->getName()), array $args[1]];
+							CoinFlip::$queue[strtolower($player->getName())] = [strtolower($sender->getName()), $args[1]];
 							CoinFlip::$inp[strtolower($sender->getName())] = true;
-							$player->sendMessage(TextFormat::GOLD . $sender->getName() . " Requested a $" . array $args[1] . " CoinFlip with you.");
+							$player->sendMessage(TextFormat::GOLD . $sender->getName() . " Requested a $" . $args[1] . " CoinFlip with you.");
 							$player->sendMessage(TextFormat::GOLD . "Type '/cf accept' to accept CoinFlip");
 							$player->sendMessage(TextFormat::GOLD . "Type '/cf deny' to deny CoinFlip");
-							$sender->sendMessage(TextFormat::GREEN . "$" . array $args[1] . " CoinFlip Requested!");
+							$sender->sendMessage(TextFormat::GREEN . "$" . $args[1] . " CoinFlip Requested!");
 						}
 					} else {
 						$sender->sendMessage("USAGE: /cf <player> <betMoney> | /cf <accept/deny>");
