@@ -14,7 +14,7 @@ class CoinFlipCommand extends VanillaCommand {
 		parent::__construct(
 			$name,
 			"CoinFlip",
-			"/cf <player> <BetMoney> | /cf <accept/deny>");
+			"/cf <player> <betMoney> | /cf <accept/deny>");
 	}
 	public function execute(CommandSender $sender, string $commandLabel, array $args){
 		if(!($sender instanceof Player)){
