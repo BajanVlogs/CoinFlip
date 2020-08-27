@@ -36,7 +36,7 @@ use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\nbt\tag\Compound;
 use pocketmine\nbt\tag\Enum;
 use pocketmine\nbt\tag\Double;
-// use pocketmine\nbt\tag\Float;
+use pocketmine\nbt\tag\Float;
 use pocketmine\nbt\tag\Short;
 use pocketmine\item\enchantment\Enchantment;
 use pocketmine\event\block\BlockPlaceEvent;
