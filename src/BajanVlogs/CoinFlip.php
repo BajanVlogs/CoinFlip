@@ -36,7 +36,6 @@ use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\nbt\tag\Compound;
 use pocketmine\nbt\tag\Enum;
 use pocketmine\nbt\tag\Double;
-use pocketmine\nbt\tag\Float;
 use pocketmine\nbt\tag\Short;
 use pocketmine\item\enchantment\Enchantment;
 use pocketmine\event\block\BlockPlaceEvent;
@@ -45,27 +44,31 @@ use pocketmine\block\Block;
 use pocketmine\event\player\PlayerKickEvent;
 use pocketmine\event\player\PlayerCommandPreprocessEvent;
 
+// Use fully qualified namespace for Float class
+use pocketmine\nbt\tag\Float as PMFloat;
+
 class CoinFlip extends PluginBase implements Listener
 {
-	/** @var string[] */
-	public static $queue = [];
-	public static $inp = [];
+    /** @var string[] */
+    public static $queue = [];
+    public static $inp = [];
 
     public function onEnable(){
         $this->getLogger()->info('CoinFlip Loaded');
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
         $this->getServer()->getCommandMap()->register("cf", new CoinFlipCommand("cf"));
     }
-	
-	public function onDisable(){
-        $this->getLogger()->info('CoinFlip Disabled');
-	}
 
-	public function onLeave(PlayerQuitEvent $ev){
-		if(isset(CoinFlip::$queue[strtolower($ev->getPlayer()->getName())])){
-			$ev->getPlayer()->getServer()->getPlayer(CoinFlip::$queue[strtolower($ev->getPlayer()->getName())][0])->sendMessage(TextFormat::RED . $ev->getPlayer()->getName() . " Left the game.");
-			unset(CoinFlip::$inp[CoinFlip::$queue[strtolower($ev->getPlayer()->getName())][0]]);
-			unset(CoinFlip::$queue[strtolower($ev->getPlayer()->getName())]);
-		}
-	}
+    public function onDisable(){
+        $this->getLogger()->info('CoinFlip Disabled');
+    }
+
+    public function onLeave(PlayerQuitEvent $ev){
+        if(isset(CoinFlip::$queue[strtolower($ev->getPlayer()->getName())])){
+            $ev->getPlayer()->getServer()->getPlayer(CoinFlip::$queue[strtolower($ev->getPlayer()->getName())][0])->sendMessage(TextFormat::RED . $ev->getPlayer()->getName() . " Left the game.");
+            unset(CoinFlip::$inp[CoinFlip::$queue[strtolower($ev->getPlayer()->getName())][0]]);
+            unset(CoinFlip::$queue[strtolower($ev->getPlayer()->getName())]);
+        }
+    }
 }
+
