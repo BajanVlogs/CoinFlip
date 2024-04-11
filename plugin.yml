@@ -1,16 +1,9 @@
 name: CoinFlip
-main: BajanVlogs\\CoinFlip
-version: 1.0
+version: 1.0.0
 api: 5.0.0
-description: Simple CoinFlip Plugin For PMMP!
 author: BajanVlogs
-
+main: BajanVlogs\CoinFlip
+description: A plugin for flipping coins in Minecraft.
 commands:
-  coinflip:
-    description: "Flips A Coin! returns heads or tails"
-    permission: coinflip.flip
-    usage: "/coinflip"
-
-permissions:
-  coinflip.flip:
-    default: true
+  cf:
+    description: CoinFlip Command
